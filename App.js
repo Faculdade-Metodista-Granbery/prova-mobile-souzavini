@@ -15,10 +15,9 @@ export default function App() {
       <StatusBar
         animated={true}
         backgroundColor="#c64242"
-       />
-          <CardQuote />
-
-
+       />{notList.map(item => <CardQuote task={item.task}
+       background={item.background} key={item.id}/>)}
+          
     </SafeAreaView>
   );
 }
