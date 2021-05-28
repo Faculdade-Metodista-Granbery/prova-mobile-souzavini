@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     content: {
-        backgroundColor: '#FAE8E0',
+        backgroundColor: '#FAE8E2',
     },
     cover: {
         height: 220,
@@ -31,7 +31,7 @@ const CardQuote = () => {
             <Card.Content style={styles.content}>
             </Card.Content>
             <Card.Actions>
-                <Paragraph>{task}</Paragraph>
+                <Paragraph>{}</Paragraph>
             </Card.Actions>
         </Card>
     )
