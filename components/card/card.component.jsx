@@ -32,7 +32,6 @@ const CardQuote = ({ task, background }) => {
 
   function HandlePlayButton() {
     SetplayButton(true);
-    console.log("Apertei");
   }
 
   function HandlePauseButton(){

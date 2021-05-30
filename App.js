@@ -31,27 +31,59 @@ const notList = [
   },
 ];
 
-
-function HandlePlayButton() {
-  SetplayButton(true);
-  console.log("Apertei");
-}
-
 export default function App() {
-  const [blackMode, SetBlackMode] = useState(false);
+  const [blackMode, SetBlackMode] = useState(true);
+
+  function HandleBlackMode() {
+    SetBlackMode(false);
+    console.log("apertei blackMode");
+  }
+  function HandleBlackModeBack() {
+    SetBlackMode(true);
+    console.log("apertei blackModeRetorno");
+  }
 
   return (
-    
-    <SafeAreaView style={styles.container}>
-       
-      <StatusBar animated={true} backgroundColor="#c64242" />
-      {notList.map((item) => (
-        <CardQuote
-          task={item.task}
-          background={item.background}
-          key={item.id}
-        />
-      ))}
+    <SafeAreaView>
+      {blackMode ? (
+        <View>
+          <p>Clique para Black Mode</p>
+          <Button
+            icon="circle-outline"
+            color="black"
+            onPress={HandleBlackMode}
+            labelStyle={{ fontSize: 80 }}
+          />
+          <SafeAreaView style={styles.container}>
+            <StatusBar animated={true} backgroundColor="#c64242" />
+            {notList.map((item) => (
+              <CardQuote
+                task={item.task}
+                background={item.background}
+                key={item.id}
+              />
+            ))}
+          </SafeAreaView>
+        </View>
+      ) :<View>
+        <p>Clique para voltar para Light Mode</p>
+        <Button
+          icon="circle-slice-8"
+          color="white"
+          style={styles.buttonBlackMode}
+          onPress={HandleBlackModeBack}
+          labelStyle={{ fontSize: 80 }}
+        />  <SafeAreaView style={styles.containerBlack}>
+        <StatusBar animated={true} backgroundColor="#c64242" />
+        {notList.map((item) => (
+          <CardQuote
+            task={item.task}
+            background={item.background}
+            key={item.id}
+          />
+        ))}
+      </SafeAreaView></View>
+      }
     </SafeAreaView>
   );
 }
@@ -65,9 +97,14 @@ const styles = StyleSheet.create({
   },
   containerBlack: {
     flex: 1,
-    backgroundColor: "#black",
+    backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
   },
-
+  buttonBlackMode:{
+    backgroundColor: "black",
+  },
+  paragraph:{
+    justifyContent: "center",
+  }
 });
