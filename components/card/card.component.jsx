@@ -10,8 +10,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "50vh",
     overflow: "hidden",
-    borderBottomColor:'#f9e7e1',
-    
+    borderBottomColor: "#f9e7e1",
   },
   content: {
     backgroundColor: "#FAE8E2",
@@ -21,13 +20,13 @@ const styles = StyleSheet.create({
   },
   action: {
     justifyContent: "center",
-    borderBottomColor: '#d7abad',
+    borderBottomColor: "#d7abad",
     borderBottomWidth: 5,
     marginBottom: 30,
   },
-  actionLoaded:{
+  actionLoaded: {
     justifyContent: "center",
-    borderBottomColor: '#9c2130',
+    borderBottomColor: "#9c2130",
     borderBottomWidth: 5,
     marginBottom: 30,
   },
@@ -35,9 +34,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#432f2a",
     fontWeight: 800,
-  },loading:{
-      
-  }
+  },
+  loading: {},
 });
 
 const CardQuote = ({ task, background }) => {
@@ -47,7 +45,7 @@ const CardQuote = ({ task, background }) => {
     SetplayButton(true);
   }
 
-  function HandlePauseButton(){
+  function HandlePauseButton() {
     SetplayButton(false);
   }
 
@@ -74,11 +72,15 @@ const CardQuote = ({ task, background }) => {
           labelStyle={{ fontSize: 80 }}
         />
       )}
-     { playButton ?  <Card.Actions style={styles.actionLoaded}>
-        <Paragraph style={styles.paragraph}>{task}</Paragraph>
-      </Card.Actions> : <Card.Actions style={styles.action}>
-        <Paragraph style={styles.paragraph}>{task}</Paragraph>
-      </Card.Actions>}
+      {playButton ? (
+        <Card.Actions style={styles.actionLoaded}>
+          <Paragraph style={styles.paragraph}>{task}</Paragraph>
+        </Card.Actions>
+      ) : (
+        <Card.Actions style={styles.action}>
+          <Paragraph style={styles.paragraph}>{task}</Paragraph>
+        </Card.Actions>
+      )}
     </Card>
   );
 };

@@ -7,32 +7,16 @@ import {
   FlatList,
   StatusBar,
 } from "react-native";
+import databaseFactory from "./Factories/databaseFactory";
+import { useList } from "react-firebase-hooks/database";
 import CardQuote from "./components/card/card.component";
 import { Button } from "react-native-paper";
 
-const notList = [
-  {
-    id: 1,
-    task: "Suco de gratidão + clorofila",
-    background:
-      "https://image.freepik.com/free-vector/flat-night-sky-background_23-2148032671.jpg",
-  },
-  {
-    id: 2,
-    task: "Aplaudir o por do sol",
-    background:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTevLH9vqcGBf4kYYXN1sEafET9xBaEjxUOMg&usqp=CAU",
-  },
-  {
-    id: 3,
-    task: "5 séries de namastê",
-    background:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa6OUSY2144YwI6mFLlxCKdyvkmKn6yLEoLA&usqp=CAU",
-  },
-];
-
 export default function App() {
   const [blackMode, SetBlackMode] = useState(true);
+  const [cards, loading, erro] = useList(
+    databaseFactory.createDatabaseService("firebase")
+  );
 
   function HandleBlackMode() {
     SetBlackMode(false);
@@ -56,34 +40,37 @@ export default function App() {
           />
           <SafeAreaView style={styles.container}>
             <StatusBar animated={true} backgroundColor="#c64242" />
-            {notList.map((item) => (
+            {cards.map((item) => (
               <CardQuote
-                task={item.task}
-                background={item.background}
-                key={item.id}
+                task={item.val().task}
+                background={item.val().profile}
+                key={item.val().id}
               />
             ))}
           </SafeAreaView>
         </View>
-      ) :<View>
-        <p>Clique para voltar para Light Mode</p>
-        <Button
-          icon="circle-slice-8"
-          color="white"
-          style={styles.buttonBlackMode}
-          onPress={HandleBlackModeBack}
-          labelStyle={{ fontSize: 80 }}
-        />  <SafeAreaView style={styles.containerBlack}>
-        <StatusBar animated={true} backgroundColor="#c64242" />
-        {notList.map((item) => (
-          <CardQuote
-            task={item.task}
-            background={item.background}
-            key={item.id}
-          />
-        ))}
-      </SafeAreaView></View>
-      }
+      ) : (
+        <View>
+          <p>Clique para voltar para Light Mode</p>
+          <Button
+            icon="circle-slice-8"
+            color="white"
+            style={styles.buttonBlackMode}
+            onPress={HandleBlackModeBack}
+            labelStyle={{ fontSize: 80 }}
+          />{" "}
+          <SafeAreaView style={styles.containerBlack}>
+            <StatusBar animated={true} backgroundColor="#c64242" />
+            {cards.map((item) => (
+              <CardQuote
+                task={item.val().task}
+                background={item.val().profile}
+                key={item.val().id}
+              />
+            ))}
+          </SafeAreaView>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -101,10 +88,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  buttonBlackMode:{
+  buttonBlackMode: {
     backgroundColor: "black",
   },
-  paragraph:{
+  paragraph: {
     justifyContent: "center",
-  }
+  },
 });
